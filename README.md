@@ -82,5 +82,5 @@ sbt:fp-things> runMain fp.things.app.MonadApp
 sbt:fp-things> runMain fp.things.app.FreeApp
 ```
 
-#### 关于交流
-不支持免费交流，血糖血氧都跟不上。
+#### TODO
+- https://blog.rockthejvm.com/monads-are-monoids-in-the-category-of-endofunctors/
