@@ -68,6 +68,29 @@ object Free {
 }
 ```
 
+#### type class
+在实现[zio-actor](https://github.com/changzhiwin/zio-actor)的时候，被`Actor[-F[+_]]`定义搞蒙了，不知道该怎么表达参数：`actorMap: Ref[Map[String, _ <: Actor[Any]]]`，本意是任意的`Actor[F]`实例，引出了对`type constructor`的理解。
+```
+// 尝试过错误的写法
+actorMap: Ref[Map[String, Actor[_]]]
+
+actorMap: Ref[Map[String, Actor]]
+```
+`Actor[-F[+_]]`表达的意思是`Actor`是一个`type class`，需要传入类型参数，才能转换成类型；而这个类型参数是：带有一个类型参数的类型构造函数。
+我们来分析一下如何传这个参数：
+- `Map[K, +V]`需要的传入的是类型，而不是`type class`；所以`Map[String, Actor]`肯定不对;
+- `Actor[_]`表达的是：需要一个类型参数的类型构造函数，也不是类型；所以`Map[String, Actor[_]]`也是不对的;
+- `Actor[Any]`传入了类型参数`Any`转换成了类型，`Any`是所有类型的父类，满足`Acotr[-F]`的约束（Contra-Variant）；所以`Map[String, Actor[Any]]`是可以的
+- 使用`_ <: Actor[Any]`是为了表达明确的类型限制语义，直接使用`Map[String, Actor[Any]]`也是正确的。
+
+**小结一下**:
+- 普通类型，可以直接构造实例，例如`class Foobar(n: Int)`，`Foobar`就是普通类型
+- 类型构造函数，需要传入参数才可以成为普通类型，例如`Seq[T]`、`Option[T]`，`Seq`、`Option`就是 *一个类型参数的* 类型构造函数
+- 类型类（type class），例如`Actor[-F[+_]]`、`Free[M[_], A]`、`Seq[T]`
+- 类型类，适用于定义场景
+- 普通类型、类型构造函数，适用于使用场景，例如：参数声明
+
+
 #### 可以挑战一下
 看明白`Monad`，`Free Monad`我花了5个工作日，这还不能算是完全掌握。你可以试试看。
 - [Monad](https://blog.rockthejvm.com/monads/)

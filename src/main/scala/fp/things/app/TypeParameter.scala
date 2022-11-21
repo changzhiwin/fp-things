@@ -15,7 +15,7 @@ object TypeParameter {
   trait ConstraintTrait[X, Container <: List[Any]]
 
   // Case: type parameter
-  // Container[_] which means SomeTrait expects a type constructor that accepts one type
+  // Container[_] which means ParameterTrait expects a type constructor that accepts one type
   // Container[Int] is already a "constructed" type
   // A 不会解释为Container的类型参数（是参数的参数），但是可以表达类型的约束，如下面必须是AnyVal的子类
   trait ParameterTrait[X, Container[A <: AnyVal]]
