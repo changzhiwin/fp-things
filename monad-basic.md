@@ -156,6 +156,7 @@ object Monad {
 - prue(x).flatMap(f) = f(x)
 - prue(x).flatMap(x => prue(x)) = prue(x)
 - prue(x).flatMap(f).flatMap(g) = prue(x).flatMap(x => f(x).flatMap(g))
+
 其中，`prue`/`flatMap`/`f`/`g`都是函数，可以拿之前的例子验证一下。
 ```
 List(2).flatMap(n => List(n*2)) == List(2 * 2)
