@@ -1,4 +1,4 @@
-package fp.things.app
+package fp.things.typelevel
 
 object TypeParameter {
 

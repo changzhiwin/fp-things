@@ -87,7 +87,7 @@ actorMap: Ref[Map[String, Actor]]
 - 普通类型，可以直接构造实例，例如`class Foobar(n: Int)`，`Foobar`就是普通类型
 - 类型构造函数，需要传入参数才可以成为普通类型，例如`Seq[T]`、`Option[T]`，`Seq`、`Option`就是 *一个类型参数的* 类型构造函数
 - 类型类（type class），例如`Actor[-F[+_]]`、`Free[M[_], A]`、`Seq[T]`
-- 类型类，适用于定义场景
+- 类型类，在某些类型之上，定义一组功能集合的接口(`trait`)
 - 普通类型、类型构造函数，适用于使用场景，例如：参数声明
 
 

@@ -179,14 +179,20 @@ object TaglessFinal_V2 {
     def or(left: SimpleExpr[Boolean], right: SimpleExpr[Boolean]): SimpleExpr[Boolean] = SimpleExpr(left.value || right.value)
   }
 
-  def program1[E[_]](implicit expr: Algebra[E]): E[Boolean] = {
+  //def program1[E[_]](implicit expr: Algebra[E]): E[Boolean] = {
+  def program1[E[_]: Algebra]: E[Boolean] = {
+    val expr = implicitly[Algebra[E]]
     import expr._
+
+    // Compile Error
+    // import implicitly[Algebra[E]]._
 
     // 这里的计算描述，其实是不需要理解具体是那个解释器的；解释器使用implicit声明
     // 这也是面向接口编程的一种理念，非常棒！！
     and(or(b(true), b(false)), not(b(false)))
   }
 
+  // 比起Context Bounds，觉得这种更加清晰
   def program2[E[_]](implicit expr: Algebra[E]): E[Int] = {
     import expr._
 
