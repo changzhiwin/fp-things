@@ -10,6 +10,13 @@
 
 详细理解，[参见](./type-and-constructor.md)
 
+## type class
+> type system constructs that support ad hoc polymorphism  -- wiki
+
+在特定类型上表现出来的多态，实现的原理是`trait`定义接口 + `implicit`实现接口；也可以理解为在特定类型上实现的一组功能。
+
+详细理解，[参见](./type-class-ad-hoc-polymorphism.md)
+
 ## Monad
 在容器之上抽象，这里`M[_]`就是一个容器。具备两个能力，就属于`Monad`:
 - pure， 把基础类型放入容器，也可以理解为包裹起来
